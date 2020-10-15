@@ -19,6 +19,9 @@ https://www.arduinolibraries.info/libraries/sd-fat
 # SD CARD SCRIPT
 You can find the relevant SD card script titled 'SDFormatter.ino' that is used to format the SD card when necessary. This script can be found in the Arduino IDE library under 'examples' after downloading SdFat. 
 
+# COVID 19 CONSEQUENCES
+Due to COVID 19, we were unable to test our board in the lab with real mice. As an alternative, we utilized artificial LFP data fed to the Arduino to simulate real-time acquisition. 
+
 # DEMONSTRATION
 A simple example of what this script is doing can be found here: 
 https://www.youtube.com/watch?v=Uwm83XhcJ_A
