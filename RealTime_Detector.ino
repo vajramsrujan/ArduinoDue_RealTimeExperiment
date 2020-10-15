@@ -31,28 +31,26 @@ float inputBuffer[cBufferLength];                                 // A buffer wh
 SdFile dataFile;           // Initializes the file which will hold Byte data
 
 const int chipSelect = 4;  // Sets SD card to read-write
-const int bufferSize = 8;  // Size of the buffer that holds the convolved points
 
 float ADCValueBinary = 0;  // Variable used to grab analog input from the Arduino
 int dataIndex = 0;         // To index through the data buffer sent to the SD card. 
-int count = 0;             // Counter used for initialization
 int loopNumber = 0;        // Keeps track of how many times void loop has executed (used in conjunction with SD card writing) 
 int cyclesUntilStim = -1;  // Keeps track of how many cycles are left until stimulation
 int refractoryCount = 0;   // Keeps track of how long it has been since the stimulation has begun
 int startPredictCycle = 0; // Holds a reference to the last peak or trough of interest to calculate the prediction time
 int stimulate = 0;         // Holds the current stimulation state (i.e ON [non-zero], or OFF [zero])
 int threshold = 30;        // An optional threshold factor: Can be used to limit processing on the wave below a certain ceiling voltage
-int dataSend[sDsize];      // Holds stimulation data as ints (1 = ON, 0 = OFF)
+int dataSend[sDsize];      // Holds stimulation and current voltage point data as ints (for stimulation: 1 = ON, 0 = OFF)
 int cycleIndex = 0;        // Keeps track of the current millisecond cycle
 
-float currentTime = 0;     // Holder variable used to keep track of critical time points
+float currentTime = 0;     // Variable used to keep track of whether 1 millisecond has passed prior to re-executing void loop 
 float startTime = 0;       // Holds timestamp at the beginning of each loop iteration
-float globalPeak = -9999;  // Global peak time
-float globalTrough = 9999; // Global trough time
+float globalPeak = -9999;  // Global peak value
+float globalTrough = 9999; // Global trough value
 float prev_Point;          // Stores the value of the previous 'convolved' point
 float curr_Point;          // Stores the value of the current 'convolved' point
-float prev_Slope;          // Holds the previous slope value
-float curr_Slope;          // Holds the current slope value
+float curr_Slope;          // Holds the current slope value between current voltage point and last voltage point
+float prev_Slope;          // Holds the previous slope value (of the previous and second last point)  
 
 //*********************************************************************************************//
 void setup() {
@@ -67,6 +65,7 @@ void setup() {
   // ========================================================================== //
   pinMode(outputPin, OUTPUT); // Sets outputPin
   pinMode(inputPin, INPUT);   // Sets inputPin
+  
   // Initialize the point values before they are updated 
   curr_Point = 0;             // Initialize the current convolved value to '0'
   prev_Point = 0;             // Initialize the previous convolved value to '0'
@@ -74,7 +73,7 @@ void setup() {
 
   // ========================================================================== //
 
-  // Create a new file 'dataFile' to store stimulation data
+  // Create a new file 'dataFile' to store stimulation and current LFP (voltage point) data
   if (!sd.begin(chipSelect, SPI_HALF_SPEED)) sd.initErrorHalt();
 
   // open the file for write at end like the Native SD library
@@ -95,7 +94,7 @@ void loop() {
   // Store the last 'current point values' (in the last loop iteration) as the present current point values. 
   prev_Point = curr_Point;                                 // Update the last point
   ADCValueBinary = analogRead(inputPin);                   // Read new analog input
-  inputBuffer[loopNumber%cBufferLength] = ADCValueBinary;  // Fill the buffer with analog inout 
+  inputBuffer[loopNumber%cBufferLength] = ADCValueBinary;  // Fill the buffer with analog input 
   
   // ========================================================================== //
  
