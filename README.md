@@ -1,5 +1,5 @@
 # CREDIT
-This was a joint effort between me, and my fellow B.U students Carlo Taglietti (ctagliet@bu.edu) and Amina Zidane (zidane@bu.edu) 
+This was a joint effort between me, and my fellow B.U students Carlo Taglietti (ctagliet@bu.edu) and Amina Zidane (zidane@bu.edu)
 
 # OVERVIEW: 
 The following program 'RealTime_Detector.ino' is a predictive peak / trough detection routine for the purpose of capturing physiologically relevant signal attributes in Local Field Potential Data. Specifically, this project is aimed at real-time prediction and stimulation of peaks and troughs for the Theta brainwave (between 4 and 12 Hz.) 
