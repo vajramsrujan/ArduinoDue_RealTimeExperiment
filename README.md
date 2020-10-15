@@ -2,6 +2,11 @@
 This was a joint effort between me, and my fellow B.U students Carlo Taglietti (ctagliet@bu.edu) and Amina Zidane (zidane@bu.edu)
 
 # OVERVIEW: 
+Our implementation aims to solve two challenging problems in the context of Real-Time Optogenetic Experimentation: 
+
+1. How can we detect physiologically relevant features of LFP data in Real_Time under the constraint of filter delay?
+2. How can we succesfully implement such an algorithm on a single board micrcontroller  instead of an Operating System running a dedicated Real-time kernel (such as RTXI?) 
+
 The following program 'RealTime_Detector.ino' is a predictive peak / trough detection routine for the purpose of capturing physiologically relevant signal attributes in Local Field Potential Data. Specifically, this project is aimed at real-time prediction and stimulation of peaks and troughs for the Theta brainwave (between 4 and 12 Hz.) 
 
 # TECHNICAL DOCUMENTS 
