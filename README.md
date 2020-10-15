@@ -1,5 +1,5 @@
 # OVERVIEW: 
-The following program is a predictive peak / trough detection routine for the purpose of capturing physiologically relevant signal attributes in Local Field Potential Data. Specifically, this project is aimed at real-time prediction and stimulation of peaks and troughs for the Theta brainwave (between 4 and 12 Hz.) 
+The following program 'RealTime_Detector.ino' is a predictive peak / trough detection routine for the purpose of capturing physiologically relevant signal attributes in Local Field Potential Data. Specifically, this project is aimed at real-time prediction and stimulation of peaks and troughs for the Theta brainwave (between 4 and 12 Hz.) 
 
 # TECHNICAL DOCUMENTS 
 You can find the technical specifications of the filters and performance of the Arduino Due (on simulated LFP data) in the 'Platform Guide.' 
